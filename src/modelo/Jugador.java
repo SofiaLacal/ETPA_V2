@@ -1,4 +1,4 @@
-package clases;
+package modelo;
 
 public class Jugador {
 
@@ -72,8 +72,21 @@ public class Jugador {
     public void infoJugador () {
         
     }
+ 
+    public void sumarPuntos (int puntos) {
+        
+        this.puntos += puntos;
+    }
 
-    sumarPuntos() {
+    public String estadisticasString () {
+
+        Jugador jugador = new Jugador();
+
+        String cadenaEstadisticas;
+
+        cadenaEstadisticas = "Los puntos del jugador " + jugador.getNombreJugador() + " son: ";
+
+        return cadenaEstadisticas;
 
     }
 
