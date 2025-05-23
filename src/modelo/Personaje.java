@@ -1,6 +1,6 @@
 package modelo;
 
-public class Personaje {
+public abstract class Personaje {
 
     //TODO Atributos
 
@@ -8,6 +8,7 @@ public class Personaje {
     private int vida;
     private String [] inventario;
     private int [] finalesDisponibles;
+
 
     //TODO Contructor
 
@@ -21,6 +22,8 @@ public class Personaje {
     public Personaje (){
         
     }
+
+
     //TODO Getters & Setters
 
     public String getNombre() {
@@ -54,6 +57,8 @@ public class Personaje {
     public void setFinalesDisponibles(int[] finalesDisponibles) {
         this.finalesDisponibles = finalesDisponibles;
     }
+
+
     //TODO Métodos Abstractos
 
     public abstract void atacar(Personaje enemigo);

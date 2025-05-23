@@ -1,6 +1,6 @@
-package clases;
+package modelo;
 
-public class NPC {
+public abstract class NPC {
 
     //TODO Atributos
 
