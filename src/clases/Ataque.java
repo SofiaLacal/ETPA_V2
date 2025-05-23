@@ -1,7 +1,7 @@
-package controlador;
+package clases;
 
-public class Menu {
-    
+public class Ataque {
+
     //TODO Atributos
 
     //TODO Contructor
