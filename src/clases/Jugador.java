@@ -4,7 +4,6 @@ public class Jugador {
 
     //TODO Atributos
 
-    private int id;
     private String nombreJugador;
     private String contraseña;
     private int puntos;
@@ -25,14 +24,6 @@ public class Jugador {
     }
 
      //Getters & Setters
-
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNombreJugador() {
         return nombreJugador;
@@ -77,6 +68,16 @@ public class Jugador {
 
         return cadenaInfo;
     }
+
+    public void infoJugador () {
+        
+    }
+
+    sumarPuntos() {
+
+    }
+
+    
 
 
    
