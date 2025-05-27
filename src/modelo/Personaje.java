@@ -19,11 +19,6 @@ public abstract class Personaje {
         this.finalesDisponibles = finalesDisponibles;
     }
 
-    public Personaje (){
-        
-    }
-
-
     //TODO Getters & Setters
 
     public String getNombre() {
@@ -61,10 +56,15 @@ public abstract class Personaje {
 
     //TODO Métodos Abstractos
 
-    public abstract void atacar(Personaje enemigo);
+    public abstract void atacar(Enemigo enemigo, int indiceAtaque);
     public abstract void defender();
     public abstract void interactuarNPC();
     public abstract void recibirDanio(int cantidad);
     public abstract void curarse();
+    public abstract String[] getNombresDeAtaques();
+
+    //TODO Otros Métodos
+
+
     
 }
