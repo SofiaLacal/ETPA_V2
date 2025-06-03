@@ -159,39 +159,6 @@ public class Jugador {
 
 
 
-/* 
-		try {
-	            Scanner sc = new Scanner(System.in);
-	            DaoJugador dao = new DaoJugador();
-
-	            // Crear o recuperar jugador
-	            Jugador jugador = Jugador.crearJugador();
-
-	            // Mostrar datos del jugador
-	            jugador.infoJugador();
-
-	            System.out.println("");
-	            
-	            // Simulación de ganar puntos
-	            System.out.print("Has superado un reto. ¿Cuántos puntos has ganado?: ");
-	            int puntosGanados = sc.nextInt();
-	            sc.nextLine();
-	            jugador.sumarPuntos(puntosGanados);
-
-	            // Actualizar puntuación en BD
-	            dao.actualizarPuntos(jugador);
-
-	            // Mostrar ranking actualizado
-	            dao.mostrarRanking();
-
-	        } catch (SQLException e) {
-	            System.out.println("Error al acceder a la base de datos.");
-	            e.printStackTrace();
-	        }
-	    }
-	    
-*/
-
 
 
 
