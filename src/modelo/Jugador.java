@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 import dao.DaoJugador;
 
+
+
+
+
 public class Jugador {
 
     //TODO Atributos
@@ -85,6 +89,7 @@ public class Jugador {
         String contraseña = sc.nextLine();
 
         return new Jugador(nombre, contraseña, 0);
+        
     }
 
 
@@ -139,5 +144,5 @@ public class Jugador {
 
         System.out.println(estadisticasString());
     }
-
+    
 }
