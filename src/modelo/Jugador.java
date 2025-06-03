@@ -143,6 +143,6 @@ public class Jugador {
     public void infoPuntos () {
 
         System.out.println(estadisticasString());
-    }
+    } 
     
 }
