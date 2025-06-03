@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Menu {
 
     public static void main(String[] args) {
-/* 
+
         Personaje personajeSeleccionado = null;
 
         Scanner sc = new Scanner(System.in);
@@ -59,11 +59,10 @@ public class Menu {
         sc.close();
     }
 
-    */
-
+    
+/* 
         Rompecabezas rompe = new Rompecabezas();
 
         rompe.IniciarJuegos(rompe);
-
+        */
     }
-}

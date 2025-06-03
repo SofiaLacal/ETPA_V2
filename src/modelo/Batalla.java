@@ -65,8 +65,7 @@ private void mostrarMenuJugador() {
                 break;
 
             case 3:
-                System.out.println("!!!! Todavía no está implementado !!!!!");
-                System.out.println("Si te quieres curar no puedes :D");
+                personaje.curarse();
                 break;
 
             default:
