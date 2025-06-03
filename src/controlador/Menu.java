@@ -2,6 +2,7 @@ package controlador;
 
 import modelo.Batalla;
 import modelo.Personaje;
+import modelo.Rompecabezas;
 import personajes.Anuket;
 import personajes.Bastet;
 import personajes.Cambises;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 public class Menu {
 
     public static void main(String[] args) {
-
+/* 
         Personaje personajeSeleccionado = null;
 
         Scanner sc = new Scanner(System.in);
@@ -32,10 +33,17 @@ public class Menu {
             int eleccion = sc.nextInt();
 
             switch (eleccion) {
-                case 1 -> personajeSeleccionado = new Cambises();
-                case 2 -> personajeSeleccionado = new Bastet();
-                case 3 -> personajeSeleccionado = new Anuket();
-                default -> System.out.println("\nSELECCIÓN INVALIDA. INTENTE NUEVAMENTE.\n");
+                case 1 : 
+                    personajeSeleccionado = new Cambises();
+                    break;
+                case 2 : 
+                    personajeSeleccionado = new Bastet();
+                    break;
+                case 3 : 
+                    personajeSeleccionado = new Anuket();
+                    break;
+                default : 
+                    System.out.println("\nSELECCIÓN INVALIDA. INTENTE NUEVAMENTE.\n");
             }
         } while (personajeSeleccionado == null);
 
@@ -49,5 +57,13 @@ public class Menu {
         System.out.println("\nGracias por jugar, " + nombreJugador + "!");
 
         sc.close();
+    }
+
+    */
+
+        Rompecabezas rompe = new Rompecabezas();
+
+        rompe.IniciarJuegos(rompe);
+
     }
 }

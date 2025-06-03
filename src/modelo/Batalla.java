@@ -32,18 +32,23 @@ public class Batalla {
         }
     }
 
-    private void mostrarMenuJugador() {
+private void mostrarMenuJugador() {
+    int accion = 0;
+
+    while (accion < 1 || accion > 3) {
         System.out.println("\n--- Turno de " + personaje.getNombre() + " ---");
         System.out.println("Vida actual: " + personaje.getVida());
-        System.out.println("¿Qué deseas hacer?\n");
+        System.out.println("\n¿Qué deseas hacer?");
         System.out.println("1. Atacar");
         System.out.println("2. Defender");
         System.out.println("3. Curarse\n");
         System.out.print("Opción: ");
-        int accion = scanner.nextInt();
+
+        accion = scanner.nextInt();
+        scanner.nextLine();
 
         switch (accion) {
-            case 1 : 
+            case 1:
                 String[] nombresAtaques = personaje.getNombresDeAtaques();
                 System.out.println("Elige un ataque:");
                 for (int i = 0; i < nombresAtaques.length; i++) {
@@ -51,18 +56,27 @@ public class Batalla {
                 }
                 System.out.print("Opción: ");
                 int indiceAtaque = scanner.nextInt() - 1;
+                scanner.nextLine();
                 personaje.atacar(enemigo, indiceAtaque);
-            
-            case 2 : 
+                break;
+
+            case 2:
                 personaje.defender();
-            
-            case 3 : 
-                //Meter cura
-                System.out.println("!!!!Todavia no esta implementado!!!!!");
+                break;
+
+            case 3:
+                System.out.println("!!!! Todavía no está implementado !!!!!");
                 System.out.println("Si te quieres curar no puedes :D");
-            
+                break;
+
+            default:
+                System.out.println("Opción no válida. Intenta de nuevo.");
+                accion = 0;
+                break;
         }
     }
+}
+
 
     private void turnoEnemigo() {
         int danioEnemigo = 30;
