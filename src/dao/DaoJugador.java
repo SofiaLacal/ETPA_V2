@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import modelo.Jugador;
 
@@ -14,7 +15,7 @@ public class DaoJugador {
 	private Connection conn = null;
 	
 	private static DaoJugador instance = null;
-	
+	 
 	
 	//TODO Constructores
 	
@@ -54,45 +55,118 @@ public class DaoJugador {
 		statement.close();
     }
 	
+    
     //2. Método para verificar si el jugador ya existe en la BD
     public boolean existe(String nombre) throws SQLException {
 
-        String sql = "SELECT COUNT(*) FROM jugador WHERE nombreJugador = ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
+    	//Consulta de SQL para comprobar los datos
+        String existSQL = "SELECT COUNT(*) FROM jugador WHERE nombreJugador = ?";
+        
+        //Relaciono con query dinámica
+        PreparedStatement stmt = conn.prepareStatement(existSQL);
+        
+        //Datos necesarios para hacer la consulta
         stmt.setString(1, nombre);
+        
+        //Ejecuto la consulta
         ResultSet rs = stmt.executeQuery();
         rs.next();
+        
         return rs.getInt(1) > 0;
+
+    }
+    
+    
+    //3. Método para obtener la contraseña si el usuario ya existe
+    public String obtenerContraseña(String nombreUsuario) throws SQLException {
+    	
+    	//Consulta de SQL para comprobar los datos
+        String contraSQL = "SELECT contrasenia FROM jugador WHERE nombreJugador = ?";
+       
+        //Relaciono con query dinámica
+        PreparedStatement stmt = conn.prepareStatement(contraSQL);
+        stmt.setString(1, nombreUsuario);
+
+        //Ejecuto la consulta
+        ResultSet rs = stmt.executeQuery();
+        
+        //Compruebo
+        if (rs.next()) {
+            return rs.getString("contrasenia");
+            
+        } else {
+            return null;
+        }
     }
 
-    //Actualización de puntos en ls BD
-    public void update () throws SQLException {
-		
-    	Jugador jugador = new Jugador();
+    
+    //4. Método para obtener puntos
+    public int obtenerPuntos(String nombreUsuario) throws SQLException {
+    	
+    	//Consulta de SQL para comprobar los datos
+        String puntoSQL = "SELECT puntos FROM jugador WHERE nombreJugador = ?";
+        
+        //Relaciono con query dinámica
+        PreparedStatement stmt = conn.prepareStatement(puntoSQL);
+        
+        stmt.setString(1, nombreUsuario);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (rs.next()) {
+            return rs.getInt("puntos");
+            
+        } else {
+            return 0;
+        }
+   
+    }
+    
+    
+    //5. Método para actualizar puntos
+    public void actualizarPuntos(Jugador jugador) throws SQLException {
+    	
+    	//Consulta de SQL
+        String actualizSQL = "UPDATE jugador SET puntos = ? WHERE nombreJugador = ?";
+        
+        //Relaciono con query dinámica
+        PreparedStatement stmt = conn.prepareStatement(actualizSQL);
+        
+        //Datos necesarios para hacer la consulta
+        stmt.setInt(1, jugador.getPuntos());
+        stmt.setString(2, jugador.getNombreJugador());
+        
+        //Ejecuto la consulta
+        stmt.executeUpdate();
+    }
+    
+    
+    //6. Método para mostrar ranking
+    public void mostrarRanking() throws SQLException {
+    	
+    	//Consulta de SQL
+        String rankingSQL= "SELECT nombreJugador, puntos FROM jugador ORDER BY puntos DESC";
+        
+        //Relaciono con query estática
+        Statement stmt = conn.createStatement();
+        
+        //Ejecuto la consulta
+        ResultSet rs = stmt.executeQuery(rankingSQL);
 
-		//Consulta de SQL para actualizar datos
-		String updateSql = "UPDATE jugador SET puntos=? WHERE nombreJugador=?";
-		
-		//Relaciono con query dinámica
-		PreparedStatement statementUpdate = conn.prepareStatement(updateSql);
-		
-		//Datos necesarios para hacer la consulta
-		statementUpdate.setInt(1, jugador.getPuntos());
+        //Compruebo
+        System.out.println("\n#### RANKING DE JUGADORES ####");
+        int posicion = 1;
 
-		//Ejecuto la consulta
-		int regsUpdated = statementUpdate.executeUpdate();
-		
-		//Compruebo si la actualización se ha realizado con éxito
-		if (regsUpdated > 0) {
-			System.out.println("\nActualización realizada con éxito\n");
-		
-		} else {
-			System.out.println("Algo ha fallado en la actualización\n");
-		}
-		
-		//Cierro el UPDATE
-		statementUpdate.close();		
-	}
+        while (rs.next()) {
+            String nombre = rs.getString("nombreJugador");
+            int puntos = rs.getInt("puntos");
+
+            System.out.println(posicion + ". " + nombre + " - " + puntos + " puntos");
+            
+            posicion++;
+        }
+    
+    }   
+    
 }
 	
 

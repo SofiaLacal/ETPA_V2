@@ -55,6 +55,6 @@ public class Enemigo {
     public static final Enemigo ESPECTRO = new Enemigo("Espectro de Arena", 120);
     public static final Enemigo GUARDIAN = new Enemigo("Guardián de Obsidiana", 150);
     public static final Enemigo SERPIENTE = new Enemigo("Serpiente Solar", 130);
-    public static final Enemigo SOMBRA = new Enemigo("Sombra Faraónica", 180);
+    public static final Enemigo SOMBRA = new Enemigo("Taharka", 180);
 
 }

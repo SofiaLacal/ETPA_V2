@@ -1,0 +1,9 @@
+CREATE DATABASE etpav2;
+USE etpav2;
+
+create table Jugador(
+	id int not null auto_increment primary key,
+   	nombreJugador varchar(50), 
+    	contrasenia varchar(500),
+    	puntos int
+);

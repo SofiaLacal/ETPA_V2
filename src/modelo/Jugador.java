@@ -61,37 +61,49 @@ public class Jugador {
     
     //1. Método para crear jugador nuevo
     public static Jugador crearJugador() throws SQLException {
-        Scanner sc = new Scanner(System.in);
+        
+    	Scanner sc = new Scanner(System.in);
 
         System.out.print("Dime tu nombre: ");
-        String nombre = sc.nextLine();
-        
-        Jugador jugador = new Jugador ();
-        jugador.setNombreJugador(nombre);
-        jugador.getContraseña();
-        
+        String nombre = sc.nextLine().toUpperCase();
+
         DaoJugador daoJugador = new DaoJugador();
-        
-        if (daoJugador.existe(jugador.getNombreJugador())) {
-            // Login
-            System.out.println("Bienvenido de nuevo, " + jugador.getNombreJugador());
-            
+
+        if (daoJugador.existe(nombre)) {
+            // LOGIN
+            String contraseñaReal = daoJugador.obtenerContraseña(nombre);
+            int puntos = daoJugador.obtenerPuntos(nombre);
+
+            Jugador jugadorExistente = new Jugador(nombre, contraseñaReal, puntos);
+            jugadorExistente.verificarContraseña();
+
+            return jugadorExistente;
+
         } else {
-            // Registro
-            System.out.print("Dime una contraseña: ");
-            String pass = sc.nextLine();
-            Jugador nuevo = new Jugador(jugador.getNombreJugador(), pass, 0);
-            daoJugador.insert(nuevo);
-            System.out.println("Usuario registrado con éxito.");
+            // REGISTRO
+            String pass, confirmar;
+
+            do {
+                System.out.print("Crea una contraseña: ");
+                pass = sc.nextLine();
+                System.out.print("Confirma la contraseña: ");
+                confirmar = sc.nextLine();
+
+                if (!pass.equals(confirmar)) {
+                    System.out.println("Las contraseñas no coinciden");
+                }
+
+            } while (!pass.equals(confirmar));
+
+            Jugador nuevoJugador = new Jugador(nombre, pass, 0);
+            daoJugador.insert(nuevoJugador);
+            
+            System.out.println("Usuario registrado con éxito");
+            
+            return nuevoJugador;
         }
-
-        System.out.print("Verifica tu contraseña: ");
-        String contraseña = sc.nextLine();
-
-        return new Jugador(nombre, contraseña, 0);
-        
     }
-
+    
 
     //2. Método para verificar la contraseña
     public void verificarContraseña() {
@@ -109,14 +121,15 @@ public class Jugador {
 
         } while (!this.contraseña.equals(intento));
 
-        System.out.println("Contraseña correcta. ¡Bienvenido al juego, " + this.nombreJugador + "!");
+        System.out.println("Contraseña correcta. ¡Bienvenid@ al juego, " + this.nombreJugador + "!");
     }
 
     
     //3. toString + imprimirlo
     public String toString () {
 
-        return "Nombre del jugador: " + getNombreJugador() + "\nPuntos: " + getPuntos();
+        return "\n-------------------------------" + "\nNombre del jugador: " + getNombreJugador() + 
+        		"\nPuntos: " + getPuntos() + "\n-------------------------------";
     }
 
     public void infoJugador () {
@@ -126,18 +139,15 @@ public class Jugador {
  
 
     //4. Método para sumar los puntos del usuario
-    public int sumarPuntos (int puntos) {
-
-    	int puntosActualizados = this.puntos += puntos;
-        
-        return puntosActualizados;
+    public void sumarPuntos(int puntos) {
+        this.puntos += puntos;
     }
-
+    
 
     //5. toString para los puntos + imprimirlos
     public String estadisticasString () {
     	
-        return "Los puntos del jugador " + this.nombreJugador + " son: " + this.puntos;
+       return "Los puntos del jugador " + this.nombreJugador + " son: " + this.puntos;
     }
     
     public void infoPuntos () {
@@ -146,3 +156,43 @@ public class Jugador {
     } 
     
 }
+
+
+
+/* 
+		try {
+	            Scanner sc = new Scanner(System.in);
+	            DaoJugador dao = new DaoJugador();
+
+	            // Crear o recuperar jugador
+	            Jugador jugador = Jugador.crearJugador();
+
+	            // Mostrar datos del jugador
+	            jugador.infoJugador();
+
+	            System.out.println("");
+	            
+	            // Simulación de ganar puntos
+	            System.out.print("Has superado un reto. ¿Cuántos puntos has ganado?: ");
+	            int puntosGanados = sc.nextInt();
+	            sc.nextLine();
+	            jugador.sumarPuntos(puntosGanados);
+
+	            // Actualizar puntuación en BD
+	            dao.actualizarPuntos(jugador);
+
+	            // Mostrar ranking actualizado
+	            dao.mostrarRanking();
+
+	        } catch (SQLException e) {
+	            System.out.println("Error al acceder a la base de datos.");
+	            e.printStackTrace();
+	        }
+	    }
+	    
+*/
+
+
+
+
+
