@@ -23,7 +23,7 @@ public class DaoJugador {
 		
 		conn = DBManager.getConnection();
 	}
-	
+					
 	
 	//TODO Otros métodos
 	
@@ -82,6 +82,7 @@ public class DaoJugador {
     	
     	//Consulta de SQL para comprobar los datos
         String contraSQL = "SELECT contrasenia FROM jugador WHERE nombreJugador = ?";
+        String pass = null; 
        
         //Relaciono con query dinámica
         PreparedStatement stmt = conn.prepareStatement(contraSQL);
@@ -92,16 +93,17 @@ public class DaoJugador {
         
         //Compruebo
         if (rs.next()) {
-            return rs.getString("contrasenia");
-            
-        } else {
-            return null;
+            pass = rs.getString("contrasenia");    
         }
+        
+         return pass;  
     }
 
     
     //4. Método para obtener puntos
     public int obtenerPuntos(String nombreUsuario) throws SQLException {
+    	
+    	int puntos = 0;
     	
     	//Consulta de SQL para comprobar los datos
         String puntoSQL = "SELECT puntos FROM jugador WHERE nombreJugador = ?";
@@ -113,12 +115,10 @@ public class DaoJugador {
         ResultSet rs = stmt.executeQuery();
         
         if (rs.next()) {
-            return rs.getInt("puntos");
+            puntos = rs.getInt("puntos");
             
-        } else {
-            return 0;
-        }
-   
+        } 
+            return puntos;
     }
     
     
@@ -126,7 +126,7 @@ public class DaoJugador {
     public void actualizarPuntos(Jugador jugador) throws SQLException {
     	
     	//Consulta de SQL
-        String actualizSQL = "UPDATE jugador SET puntos = ? WHERE nombreJugador = ?";
+        String actualizSQL = "UPDATE jugador SET puntos = ? WHERE nombreJugador = ? ";
         
         //Relaciono con query dinámica
         PreparedStatement stmt = conn.prepareStatement(actualizSQL);
@@ -137,6 +137,7 @@ public class DaoJugador {
         
         //Ejecuto la consulta
         stmt.executeUpdate();
+
     }
     
     
