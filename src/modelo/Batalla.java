@@ -7,11 +7,16 @@ public class Batalla {
 
     private final Personaje personaje;
     private final Enemigo enemigo;
+    private final boolean bossFinal;
+    private final Escenarios escenario;
+
     private final Scanner scanner;
 
-    public Batalla(Personaje personaje) {
+    public Batalla(Personaje personaje, Enemigo enemigo, boolean bossFinal, Escenarios escenario) {
         this.personaje = personaje;
-        this.enemigo = elegirEnemigoAleatorio();
+        this.enemigo = enemigo;
+        this.bossFinal = bossFinal;
+        this.escenario = escenario;
         this.scanner = new Scanner(System.in);
     }
 
@@ -57,7 +62,8 @@ private void mostrarMenuJugador() {
                 System.out.print("Opción: ");
                 int indiceAtaque = scanner.nextInt() - 1;
                 scanner.nextLine();
-                personaje.atacar(enemigo, indiceAtaque);
+                int modificadorAtaque = escenario.getModificadorAtaque();
+                personaje.atacar(enemigo, indiceAtaque, modificadorAtaque);
                 break;
 
             case 2:
@@ -65,7 +71,7 @@ private void mostrarMenuJugador() {
                 break;
 
             case 3:
-                personaje.curarse();
+                personaje.usarBotiquin();
                 break;
 
             default:
@@ -78,23 +84,52 @@ private void mostrarMenuJugador() {
 
 
     private void turnoEnemigo() {
-        int danioEnemigo = 30;
+        int danioEnemigo;
+
+        if (bossFinal) {
+            danioEnemigo = 40;
+        } else {
+            danioEnemigo = 30;
+        }
+
         System.out.println("\n--- Turno del enemigo ---");
-        System.out.println(enemigo.getNombre() + " ataca y causa " + danioEnemigo + " de daño.");
-        personaje.recibirDanio(danioEnemigo);
+        int defensa = escenario.getModificadorDefensa();
+        int danioFinal = danioEnemigo - defensa;
+        danioFinal = Math.max(0, danioFinal); // Hace que no haya daño negativo
+
+        System.out.println(enemigo.getNombre() + " ataca y causa " + danioFinal + " de daño (Modificador de Defensa: " + defensa + ").");
+        personaje.recibirDanio(danioFinal);
+
     }
 
-    private Enemigo elegirEnemigoAleatorio() {
+    private static Enemigo elegirEnemigoAleatorio() {
         Enemigo[] enemigos = new Enemigo[] {
                 new Enemigo("Gusano del Desierto", 100),
-                new Enemigo("Escorpión de Piedra", 120),
-                new Enemigo("Momia Guerrera", 150),
-                new Enemigo("Espectro de Arena", 130),
-                new Enemigo("Sombra Faraónica", 160)
+                new Enemigo("Espectro de Arena", 120),
+                new Enemigo("Guardián de Obsidiana", 150),
+                new Enemigo("Serpiente Solar", 130),
         };
 
         Random random = new Random();
         int indice = random.nextInt(enemigos.length);
         return enemigos[indice];
+    }
+
+    private static Enemigo enemigoFinal() {
+
+        Enemigo taharka = new Enemigo("Taharka", 300);
+
+        return taharka;
+    }
+
+    public static void iniciarBatallaNormal(Personaje personaje, Escenarios escenario) {
+        Enemigo enemigo = elegirEnemigoAleatorio();
+        Batalla batalla = new Batalla(personaje, enemigo, false, escenario);
+        batalla.iniciar();
+    }
+    public static void iniciarBatallaFinal(Personaje personaje, Escenarios escenario) {
+        Enemigo jefeFinal = enemigoFinal();
+        Batalla batallaFinal = new Batalla(personaje, jefeFinal, true, escenario);
+        batallaFinal.iniciar();
     }
 }

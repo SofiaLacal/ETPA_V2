@@ -1,5 +1,7 @@
 package modelo;
 
+import java.util.Random;
+
 public class Ataque {
 
     //TODO Atributos
@@ -57,5 +59,29 @@ public class Ataque {
     }
 
     //TODO Otros métodos
+
+    public class DanioResultado {
+    public int danio;
+    public String tipo;
+
+    public DanioResultado(int danio, String tipo) {
+        this.danio = danio;
+        this.tipo = tipo;
+    }
+}
+
+    public DanioResultado obtenerDanioAleatorio() {
+    Random random = new Random();
+    int opcion = random.nextInt(3);
+
+    switch (opcion) {
+        case 0:
+            return new DanioResultado(danioCompleto, "completo");
+        case 1:
+            return new DanioResultado(danioParcial, "parcial");
+        default:
+            return new DanioResultado(danioNulo, "nulo");
+    }
+}
 
 }
