@@ -13,17 +13,19 @@ public class Juego {
 
 	public static void main(String[] args) throws SQLException {
 
+		/*
 		Jugador jugador1 = new Jugador();
     	DaoJugador dao1 = new DaoJugador();
+		*/
     	Rompecabezas rompe = new Rompecabezas();
-    	
+    	/* 
     	try {
 			Jugador.crearJugador();
 		} catch (SQLException e) {
 			System.out.println("Error al acceder a la base de datos.");
 			e.printStackTrace();
 		}
-    	
+    	*/
     	rompe.iniciarJuegos(rompe);
 
 

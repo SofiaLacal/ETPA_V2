@@ -1,6 +1,7 @@
 package controlador;
 
 import modelo.Batalla;
+import modelo.Escenarios;
 import modelo.Personaje;
 import modelo.Rompecabezas;
 import personajes.Anuket;
@@ -10,18 +11,20 @@ import personajes.Cambises;
 import java.util.Scanner;
 
 public class Menu {
-
+    
     public static void main(String[] args) {
 
         Personaje personajeSeleccionado = null;
+        
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("¡Bienvenido a la Aventura del Nilo!");
-        System.out.print("Introduce tu nombre, valiente viajero: ");
-        String nombreJugador = sc.nextLine();
+        System.out.println("\nVamos a comenzar la aventura, debes ir eligiendo tu propio camino." 
+        	+ "\n¡¡Pero cuidado!! \nTus decisiones pueden afectar al desenlace final.\n" 
+        	+ "\nRecibes un mensaje de los Dioses avisando de un peligro inminente." 
+        	+ "\nTaharka, nigromante exiliado en los tiempos de Amunoketh II, ha regresado. Debe ser detenido a toda costa para evitar la destrucción de Egipto.");
 
-        System.out.println("\nHola " + nombreJugador + ", elige tu personaje:");
+        System.out.println("\nElige a tu personaje:\n");
 
         do {
 
@@ -48,21 +51,19 @@ public class Menu {
         } while (personajeSeleccionado == null);
 
         System.out.println("\nHas elegido a: " + personajeSeleccionado.getNombre());
-        System.out.println("¡Prepárate para tu primera batalla!");
+        /*
+        //Rompecabezas
+        Rompecabezas rompeUno = new Rompecabezas();
+        rompeUno.iniciarJuegos(rompeUno);
+        */
+        //Escenario
+        Escenarios escenario = Escenarios.getInstancia();
 
-        // Iniciar batalla
-        Batalla batalla = new Batalla(personajeSeleccionado);
-        batalla.iniciar();
-
-        System.out.println("\nGracias por jugar, " + nombreJugador + "!");
+        // Iniciar batalla normal
+        Batalla.iniciarBatallaNormal(personajeSeleccionado, escenario);
+        Batalla.iniciarBatallaFinal(personajeSeleccionado, escenario);
 
         sc.close();
     }
-
-    
-/* 
-        Rompecabezas rompe = new Rompecabezas();
-
-        rompe.IniciarJuegos(rompe);
-        */
-    }
+        
+}

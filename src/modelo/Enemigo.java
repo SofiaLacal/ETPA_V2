@@ -49,12 +49,4 @@ public class Enemigo {
     return vida > 0;
     }
 
-    //TODO Enemigos
-
-    public static final Enemigo GUSANO = new Enemigo("Gusano del Desierto", 100);
-    public static final Enemigo ESPECTRO = new Enemigo("Espectro de Arena", 120);
-    public static final Enemigo GUARDIAN = new Enemigo("Guardián de Obsidiana", 150);
-    public static final Enemigo SERPIENTE = new Enemigo("Serpiente Solar", 130);
-    public static final Enemigo SOMBRA = new Enemigo("Taharka", 180);
-
 }

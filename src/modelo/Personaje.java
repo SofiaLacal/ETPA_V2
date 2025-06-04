@@ -1,5 +1,7 @@
 package modelo;
 
+import modelo.Ataque.DanioResultado;
+
 public class Personaje {
 
     //TODO Atributos
@@ -58,17 +60,23 @@ public class Personaje {
 
     //TODO Otros Métodos
 
-    public void atacar(Enemigo enemigo, int indiceAtaque) {
+    public void atacar(Enemigo enemigo, int indiceAtaque, int modificadorAtaque) {
         if (indiceAtaque < 0 || indiceAtaque >= ataque.length || ataque[indiceAtaque] == null) {
             System.out.println("Introduce un ataque válido");
             return;
         }
 
         Ataque ataqueElegido = ataque[indiceAtaque];
-        enemigo.recibirDanio(ataqueElegido.getDanioCompleto());
-        System.out.println(nombre + " usa " + ataqueElegido.getNombreAtaque() +
-                           " y causa " + ataqueElegido.getDanioCompleto() + " de daño.");
+        DanioResultado resultado = ataqueElegido.obtenerDanioAleatorio();
+
+        int danioFinal = resultado.danio + modificadorAtaque;
+        if (danioFinal < 0) danioFinal = 0;
+
+        enemigo.recibirDanio(danioFinal);
+        System.out.println(nombre + " usa " + ataqueElegido.getNombreAtaque() + " (Modificador de Ataque: " + modificadorAtaque + "). Daño " + resultado.tipo + ".");
     }
+
+
 
     public void defender() {
         estaDefendiendo = true;
@@ -85,7 +93,7 @@ public class Personaje {
             estaDefendiendo = false;
             System.out.println(nombre + " bloqueó parte del daño. Solo recibe " + cantidad + " de daño.");
         } else {
-            System.out.println(nombre + " recibe " + cantidad + " de daño.");
+
         }
 
         int nuevaVida = vida - cantidad;
@@ -97,10 +105,9 @@ public class Personaje {
     }
 
     public void curarse() {
-        int cantidadCuracion = 25;
+        int cantidadCuracion = 50;
         vida += cantidadCuracion;
-        System.out.println(nombre + " se cura " + cantidadCuracion +
-                           " puntos de vida con un botiquín. Vida actual: " + vida);
+        System.out.println(nombre + " se cura " + cantidadCuracion + " puntos de vida con un botiquín. Vida actual: " + vida);
     }
 
     public void usarBotiquin() {

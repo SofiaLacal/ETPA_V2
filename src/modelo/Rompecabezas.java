@@ -11,17 +11,9 @@ public class Rompecabezas {
 
     // Métodos
 	
-    public void iniciarJuegos(Rompecabezas rompecabezas) throws SQLException {
+    public void iniciarJuegos(Rompecabezas rompecabezas){
        
        Rompecabezas rompeCa = new Rompecabezas();
-        
-       
-       System.out.println("\nVamos a comenzar la aventura, debes ir eligiendo tu propio camino." 
-        	+ "\n¡¡Pero cuidado!! \nTus decisiones pueden afectar al desenlace final.\n" 
-        	+ "\nRecibes un mensaje de los Dioses avisando de un peligro inminente." 
-        	+ "\nTaharka, nigromante exiliado en los tiempos de Amunoketh II, ha regresado. Debe ser detenido a toda costa para evitar la destrucción de Egipto.");
-       
-       System.out.println(" \n¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡PONER AQUÍ LA ELECCIÓN DEL PERSONAJE!!!!!!!!!!!!!!!!!! ");
 
         System.out.println("\nTe encuentras con el primer rompecabezas del camino, a las puertas de la Pirámide de Ezhar. Encima de la puerta se lee lo "
             + "siguiente:" + "\n\t❂ Soy eterno, pero nunca envejezco. Mi rostro es de piedra, pero nunca me canso" 
@@ -66,7 +58,7 @@ public class Rompecabezas {
     
     //Adivinar Efinge
 
-    private void adivinanzaUno() throws SQLException {
+    private void adivinanzaUno(){
 
     	Scanner sc = new Scanner(System.in);
 	    String respuestaUsuario = sc.nextLine();
@@ -369,8 +361,9 @@ public class Rompecabezas {
 				    	+ "\nEl sol, alguna vez brillante y cálido sobre las tierras de Egipto, ahora está opacado por nubes oscuras que bloquean su luz. "
 						+ "\nLas aguas del Nilo, fuente de vida para el imperio, se han vuelto turbias y peligrosas, arrastrando con ellas plagas que asolan los campos y aldeas."
 				    	+ "\n\n############  FIN DEL JUEGO  ############");
-				    
-				    /* METODO FIN DEL JUEGO Y FINALIZAR TODO + SACAR PUNTOS*/
+
+				        /*SACAR PUNTOS*/
+                        System.exit(0);
 	
 				} else if (respuestaFinal == 2) {
 				    System.out.println("\nPor corazón puro y leal, te concederé mayor poder del que jamás podrías imaginar para la batalla que acontece");		
@@ -378,7 +371,7 @@ public class Rompecabezas {
 				    	+ "en compañía de su fiel aliada Uraeus y con el Papiro de Damasco en la mano. "
 				    	+ "\nEstá a punto de liberar a las sombras para desatar el caos en todo Egipto y gobernar por encima de todos");
 				    
-				    /* METODO BATALLA, LLAMARLA Y EMPEZAR A LUCHAR */
+                        /* Continua en menu haciendo los combates */
 				}
 	    	}
 	    
