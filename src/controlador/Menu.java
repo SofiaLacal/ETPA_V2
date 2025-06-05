@@ -2,29 +2,35 @@ package controlador;
 
 import modelo.Batalla;
 import modelo.Escenarios;
+import modelo.Jugador;
 import modelo.Personaje;
 import modelo.Rompecabezas;
 import personajes.Anuket;
 import personajes.Bastet;
 import personajes.Cambises;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
     
-    public static void main(String[] args) {
+        public void iniciarPartida(){
 
-        Personaje personajeSeleccionado = null;
-        
+            try {
+    		
+            Jugador jugador = Jugador.crearJugador();
 
-        Scanner sc = new Scanner(System.in);
+            System.out.println("\nVamos a comenzar la aventura, debes ir eligiendo tu propio camino." 
+                	+ "\n¡¡Pero cuidado!! \nTus decisiones pueden afectar al desenlace final.\n" 
+                	+ "\nRecibes un mensaje de los Dioses avisando de un peligro inminente." 
+                	+ "\nTaharka, nigromante exiliado en los tiempos de Amunoketh II, ha regresado. Debe ser detenido a toda costa para evitar la destrucción de Egipto.");
+            
+            //ELEGIR PERSONAJE
+            
+            Personaje personajeSeleccionado = null;
+            Scanner sc = new Scanner(System.in);
 
-        System.out.println("\nVamos a comenzar la aventura, debes ir eligiendo tu propio camino." 
-        	+ "\n¡¡Pero cuidado!! \nTus decisiones pueden afectar al desenlace final.\n" 
-        	+ "\nRecibes un mensaje de los Dioses avisando de un peligro inminente." 
-        	+ "\nTaharka, nigromante exiliado en los tiempos de Amunoketh II, ha regresado. Debe ser detenido a toda costa para evitar la destrucción de Egipto.");
-
-        System.out.println("\nElige a tu personaje:\n");
+            System.out.println("\nElige a tu personaje:\n");
 
         do {
 
@@ -51,19 +57,24 @@ public class Menu {
         } while (personajeSeleccionado == null);
 
         System.out.println("\nHas elegido a: " + personajeSeleccionado.getNombre());
-        /*
-        //Rompecabezas
-        Rompecabezas rompeUno = new Rompecabezas();
-        rompeUno.iniciarJuegos(rompeUno);
-        */
-        //Escenario
+            
+            //INICIAMOS ROMEPCABEZAS
+            Rompecabezas rompe = new Rompecabezas();
+            rompe.iniciarJuegos(jugador);           
+
+            
+            //INICIAMOS BATALLA
+            
+        //personajeSeleccionado.activarFinal(3);
+
         Escenarios escenario = Escenarios.getInstancia();
 
-        // Iniciar batalla normal
         Batalla.iniciarBatallaNormal(personajeSeleccionado, escenario);
         Batalla.iniciarBatallaFinal(personajeSeleccionado, escenario);
-
-        sc.close();
-    }
-        
+            
+        } catch (SQLException e) {
+            System.out.println("Error al acceder a la base de datos.");
+            e.printStackTrace();
+        }	
+    }   
 }

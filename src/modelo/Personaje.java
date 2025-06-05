@@ -9,18 +9,24 @@ public class Personaje {
     private String nombre;
     private int vida;
     private int [] inventario;
-    private int [] finalesDisponibles;
+    private Final[] finalesDisponibles = new Final[5];
 
     protected Ataque[] ataque = new Ataque[3];
     protected boolean estaDefendiendo = false;
 
     //TODO Contructor
 
-    public Personaje (String nombre, int vida, int[] inventario, int[] finalesDisponibles){
+    public Personaje (String nombre, int vida, int[] inventario){
         this.nombre = nombre;
         this.vida = vida;
         this.inventario = inventario;
-        this.finalesDisponibles = finalesDisponibles;
+        
+        finalesDisponibles[0] = new Final("Final heroico: salvaste el mundo.");
+        finalesDisponibles[1] = new Final("Final trágico: caíste en batalla.");
+        finalesDisponibles[2] = new Final("Final secreto: te convertiste en leyenda.");
+        finalesDisponibles[3] = new Final("Final neutral: desapareciste sin dejar rastro.");
+        finalesDisponibles[4] = new Final("Final caótico: traicionaste a todos y tomaste el poder.");
+
     }
 
     //TODO Getters & Setters
@@ -49,11 +55,11 @@ public class Personaje {
         this.inventario = inventario;
     }
 
-    public int[] getFinalesDisponibles() {
+    public Final[] getFinalesDisponibles() {
         return finalesDisponibles;
     }
 
-    public void setFinalesDisponibles(int[] finalesDisponibles) {
+    public void setFinalesDisponibles(Final[] finalesDisponibles) {
         this.finalesDisponibles = finalesDisponibles;
     }
 
@@ -127,7 +133,9 @@ public class Personaje {
         return nombres;
     }
 
-
-
-    
+        public void activarFinal(int indice) {
+        if (indice >= 0 && indice < finalesDisponibles.length && finalesDisponibles[indice] != null) {
+            finalesDisponibles[indice].mostrarFinal();
+        }
+    }   
 }
