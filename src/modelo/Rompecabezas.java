@@ -4,61 +4,63 @@ import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 
-import controlador.Menu;
 import dao.DaoJugador;
 
 public class Rompecabezas {
 
     // Métodos
 	
-    public void iniciarJuegos(Rompecabezas rompecabezas){
+    public void iniciarJuegos(Jugador jugador) throws SQLException {
        
        Rompecabezas rompeCa = new Rompecabezas();
-
+       DaoJugador dao1 = new DaoJugador();
+                     
         System.out.println("\nTe encuentras con el primer rompecabezas del camino, a las puertas de la Pirámide de Ezhar. Encima de la puerta se lee lo "
             + "siguiente:" + "\n\t❂ Soy eterno, pero nunca envejezco. Mi rostro es de piedra, pero nunca me canso" 
         	+ "\n\tVigilante del sol y del desierto sin fin, en el misterio de las pirámides guardo mi sin fin. ¿Qué soy? ❂");
 
-		rompeCa.adivinanzaUno();
-        
+		rompeCa.adivinanzaUno(jugador);
+		
         System.out.println("\nEntras a la pirámide y te encuentras con la esfinge guardiana de la pirámide.\n" 
         + "\n\t⥼Te doy la bienvenida guerrero, pero no puedo dejar que te adentres en la cámara sin saber si eres digno." 
         + "\n\tLo sabré con tu respuesta. Tienes 5 intentos." 
         + "\n\tPara en la cámara poder entrar el número debes acertar⥽");
 
-        rompeCa.adivinanzaDos();
+        rompeCa.adivinanzaDos(jugador);
 
         System.out.println("La esfinge te deja paso a la cámara." 
         + "\nAllí te encuentras a un guardián, que te dice que está muy solo y te pide compañía. Te propone jugar con él a piedra, papel o tijera." 
         + "\nSi ganas de manera justa, te permitirá continuar. El juego será al mejor de tres.");
 
-        rompeCa.PPT();
+        rompeCa.PPT(jugador);
 
 		System.out.println("\nAccedes a la segunda cámara" 
 		+ "\nPara tu sorpresa, allí se encuentra Bennu, quien te pone otra prueba. Se trata de un trivial sobre Egipto");
                 
-        rompeCa.trivial();
+        rompeCa.trivial(jugador);
 
 		System.out.println("\nPasas a la siguiente cámara, donde te encuentras con Imhotep, sabio sacerdote del Antigüo Egipto, guardián de las almas.\n" 
 		+ "\n\t ¿Osas adentrarte en las entrañas del conocimiento prohibido?" 
 		+ "\n\t Para poder superar esta prueba, tienes que acertar la palabra secreta. Si fallas, tu alma quedará atrapada aquí por el resto de la eternidad." 
 		+ "\n\nPISTA (es una de las siguientes palabras): Seth, Anubis, Horus, Osiris, Sekhmet");
         
-        rompeCa.ahorcado();
+        rompeCa.ahorcado(jugador);
        
 		System.out.println("\nSe abre ante ti una puerta oculta en la pared" 
 				+ "\nDe pronto aparece una gran sombra, al mirar más detenidamente ves que se trata de Ammit" 
 				+ "\nTrae malas noticias con ella, ya que los valiosos soldados de Eazima han sido destruidos......" 
 				+ "\nTe dice que tras las puertas se guarda un gran y valioso tesoro, quien las cruce tendrá oro, gloria y poder sin igual para derrotar a Taharka"); 
 
-		rompeCa.favorAmmit();
-		
+		rompeCa.favorAmmit(jugador);
+				
+		dao1.actualizarPuntos(jugador);	
+
     }
      
     
     //Adivinar Efinge
 
-    private void adivinanzaUno(){
+    private void adivinanzaUno(Jugador jugador) {
 
     	Scanner sc = new Scanner(System.in);
 	    String respuestaUsuario = sc.nextLine();
@@ -73,29 +75,30 @@ public class Rompecabezas {
 			        
 			if (respuestaUsuario.equalsIgnoreCase("Esfinge") || respuestaUsuario.equalsIgnoreCase("La esfinge")) {
 			            System.out.println("¡Es correcto! La puerta se abre ante ti");
-
+			            jugador.sumarPuntos(20);  
+			       
 			} else {
-					System.out.println("Has gastado todos tus intentos");
+					System.out.println("Has gastado todos tus intentos" + "\nSales corriendo y te cuelas en la pirámide antes de que la puerta se cierre");
 			}
 
     }
 
     
     // Adivina el número
-    private void adivinanzaDos() {
+    private void adivinanzaDos(Jugador jugador) {
 
         Random random = new Random ();
         Scanner sc = new Scanner(System.in);
         
         int numeroAdivinar = random.nextInt(10);
-        int adivina = 0;
+        int adivina = 20;
         int intentosR = 5;
 
         while (numeroAdivinar != adivina && intentosR != 0) {
         	
 				adivina = sc.nextInt();
 				
-					while (adivina < 0 || adivina >= 10) {
+					while (adivina <= -1 || adivina >= 11) {
 						System.out.println("Prueba otra vez");
 						adivina = sc.nextInt();
 					}
@@ -115,16 +118,18 @@ public class Rompecabezas {
 				
 			if (intentosR > 0) { 
 				System.out.println("\nAdelante, puedes pasar. " + numeroAdivinar + " era el número correcto.\n");
+				 jugador.sumarPuntos(20);
 
 			} else {
 				System.out.println("Has gastado todos los intentos.");
-				System.out.println("\nTe permitiré la entrada, pero a cambio te quitaré un objeto valioso");
+				System.out.println("\nTe permitiré la entrada, pero a cambio te quitaré un objeto valioso para ti, el mapa ancestral de la pirámide"
+					+ " que se encuentra en tu poder.");
 			}
     	}    
 
 
 	    // Piedra, Papel o Tijera
-	    private void PPT(){
+	    private void PPT(Jugador jugador) {
 	       
 	        Scanner sc = new Scanner(System.in);
 	        Random random = new Random();
@@ -133,7 +138,6 @@ public class Rompecabezas {
 	        int eleccionOponente = random.nextInt(3);
 			int puntosEnemigo = 0;
 		    int puntosUsuario = 0;
-	        String personaje = "getPersonaje()";
 	        int eleccionJugador;
 
 	        while (puntosEnemigo != 3 && puntosUsuario != 3) {
@@ -160,30 +164,32 @@ public class Rompecabezas {
 				        System.out.println("\n¡Has ganado!");
 				        puntosUsuario++;
 				        System.out.println("\nPuntuación: ");
-				        System.out.println(personaje + " tienes: " + puntosUsuario + " puntos");
+				        System.out.println("Tienes: " + puntosUsuario + " puntos");
 				        System.out.println("El guardián tiene: " + puntosEnemigo + " puntos \n");
 				           	
 				    } else {
 				        System.out.println("\n¡Has perdido!");
 				        puntosEnemigo++;
 				        System.out.println("\nPuntuación: ");
-				        System.out.println(personaje + " tienes: " + puntosUsuario + " puntos");
+				        System.out.println("Tienes: " + puntosUsuario + " puntos");
 				        System.out.println("El guardián tiene: " + puntosEnemigo + " puntos \n");
 				    }
 				}
 						
 				if (puntosUsuario == 3) {
 					System.out.println("\nMe has derrotado justamente, puedes continuar tu camino.");
+					jugador.sumarPuntos(30);  
 							
 				} else {
-					System.out.println("\nHas perdido la prueba, puedes pasar a la siguiente zona, pero a cambio de un objeto valioso");
-				}
-						
+					System.out.println("\nHas perdido la prueba, el guardián extiende su brazo y te bloquea el paso." +
+						"Finges retirarte... pero en cuanto su atención se desvía, te deslizas silenciosamente tras una pared cercana." + 
+						"Cuando el guardián se aleja, sin sospechar nada, aprovechas el momento y te cuelas en la siguiente cámara");		
+				}		
 	        }
 
 	    
 	    // Trivial
-	    private void trivial (){
+	    private void trivial (Jugador jugador) {
 
 	        Scanner sc = new Scanner(System.in);
 		    String respuesta1, respuesta2, respuesta3, respuesta4 = "";
@@ -199,6 +205,7 @@ public class Rompecabezas {
 					       
 					if (respuesta1.equals("b")) {
 						System.out.println("¡Correcto!\n");
+						jugador.sumarPuntos(10);
 					            
 					} else {
 						System.out.println("No has acertado, la respuesta correcta es: el Nilo.\n");
@@ -210,12 +217,12 @@ public class Rompecabezas {
 				respuesta2 = sc.nextLine().toLowerCase();
 					        
 				while (!respuesta2.equals("a") && !respuesta2.equals("b") && !respuesta2.equals("c") && !respuesta2.equals("d")) {
-						System.out.println("Esa no es la respuesta. Tienes otro intento");
 						respuesta2 = sc.nextLine().toLowerCase();
 				}
 						    
 					if (respuesta2.equals("b")) {
 				        System.out.println("¡Correcto!\n");
+				        jugador.sumarPuntos(10);
 				        
 				    } else {
 				        System.out.println("No has acertado, la respuesta correcta es: Tutankamón.\n");
@@ -227,12 +234,12 @@ public class Rompecabezas {
 				respuesta3 = sc.nextLine().toLowerCase();
 					        
 				while (!respuesta3.equals("a") && !respuesta3.equals("b") && !respuesta3.equals("c") && !respuesta3.equals("d")) {
-						System.out.println("Esa no es la respuesta. Tienes otro intento");
 						respuesta3 = sc.nextLine().toLowerCase();
 				}
 						    
 					if (respuesta3.equals("d")) {
 				        System.out.println("¡Correcto!\n");
+				        jugador.sumarPuntos(10);
 				            
 				    } else {
 				        System.out.println("No has acertado, la respuesta correcta es: las Pirámides.\n");
@@ -244,22 +251,21 @@ public class Rompecabezas {
 				respuesta4 = sc.nextLine().toLowerCase();
 					        
 				while (!respuesta4.equals("a") && !respuesta4.equals("b") && !respuesta4.equals("c") && !respuesta4.equals("d")) {
-						System.out.println("Esa no es la respuesta. Tienes otro intento");
 						respuesta4 = sc.nextLine().toLowerCase();
 				}	   
 						    
 					if (respuesta4.equals("a")) {
 				        System.out.println("¡Correcto!\n");
+				        jugador.sumarPuntos(10);
 				          
 					} else {
 				        System.out.println("No has acertado, la respuesta correcta es: el león.\n");
 				    }
-
 	    }
 	    
 	    // Ahorcado
 	    
-	    private void ahorcado(){
+	    private void ahorcado(Jugador jugador) {
 
 	        Scanner sc = new Scanner(System.in);
 
@@ -305,7 +311,7 @@ public class Rompecabezas {
 						         letrasAdivinadas = palabraSecreta.toCharArray(); 
 						         System.out.println("\n¡Felicidades! Has adivinado la palabra: " + palabraSecreta);
 						         palabraAdivinada = true;
-					                    
+						         					                    
 					         } else {
 						         intentosRestantes--;
 						         System.out.println("\n¡Has perdido! La palabra era: " + palabraSecreta);
@@ -328,16 +334,18 @@ public class Rompecabezas {
 					        
 					if (!palabraAdivinada) {
 						System.out.println("\n¡Has perdido! La palabra era: " + palabraSecreta);
+						System.out.println("\nImhotep intenta atraparte para quitarte el alma, pero lo esquivas y accedes a la siguiente cámara");
 						
 					} else {
 						System.out.println("\nHas superado la prueba de Imhotep. Se aparta para dejarte paso.");
+						jugador.sumarPuntos(20);
 					}
 	    }
 	    
 	    
 	    // Favor de Ammit
 	    
-	    private void favorAmmit () {
+	    private void favorAmmit (Jugador jugador) {
 	    	
 	    	Scanner sc = new Scanner (System.in);
 	    	int respuestaFinal;
@@ -361,22 +369,19 @@ public class Rompecabezas {
 				    	+ "\nEl sol, alguna vez brillante y cálido sobre las tierras de Egipto, ahora está opacado por nubes oscuras que bloquean su luz. "
 						+ "\nLas aguas del Nilo, fuente de vida para el imperio, se han vuelto turbias y peligrosas, arrastrando con ellas plagas que asolan los campos y aldeas."
 				    	+ "\n\n############  FIN DEL JUEGO  ############");
-
-				        /*SACAR PUNTOS*/
-                        System.exit(0);
+				    jugador.sumarPuntos(-50);
+				    jugador.infoJugador();
+				    
+				    System.exit(0);
 	
 				} else if (respuestaFinal == 2) {
 				    System.out.println("\nPor corazón puro y leal, te concederé mayor poder del que jamás podrías imaginar para la batalla que acontece");		
 				    System.out.println("\nEntras en la cámara final, donde debían estar los soldados. Allí te espera Taharka, vestido con su armadura dorada, "
 				    	+ "en compañía de su fiel aliada Uraeus y con el Papiro de Damasco en la mano. "
 				    	+ "\nEstá a punto de liberar a las sombras para desatar el caos en todo Egipto y gobernar por encima de todos");
+				    jugador.sumarPuntos(50);
 				    
-                        /* Continua en menu haciendo los combates */
+				    /* METODO BATALLA, LLAMARLA Y EMPEZAR A LUCHAR */
 				}
-	    	}
-	    
+	    	}   
 	    }
-
-
-
-	

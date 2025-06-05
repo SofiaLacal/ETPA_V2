@@ -6,7 +6,7 @@ import modelo.Personaje;
 public class Anuket extends Personaje {
 
     public Anuket() {
-        super("Ánuket", 650, new int[3], new int[5]);
+        super("Ánuket", 650, new int[3]);
         getInventario()[0] = 1;
         ataque[0] = new Ataque("Básico", 30, 15, 0);
         ataque[1] = new Ataque("Titán", 130, 65, 0);

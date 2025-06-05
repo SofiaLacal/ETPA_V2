@@ -2,12 +2,7 @@ package modelo;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
 import dao.DaoJugador;
-
-
-
-
 
 public class Jugador {
 
