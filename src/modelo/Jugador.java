@@ -20,19 +20,11 @@ public class Jugador {
         this.puntos = puntos;
     }
 
-    public Jugador () {
-
-    }
-
     
     //Getters & Setters
 
     public String getNombreJugador() {
         return nombreJugador;
-    }
-
-    public void setNombreJugador(String nombreJugador) {
-        this.nombreJugador = nombreJugador;
     }
 
     public String getContraseña() {
@@ -47,11 +39,6 @@ public class Jugador {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
-    }
-
-
     //TODO Otros métodos    
     
     //1. Método para crear jugador nuevo
@@ -59,6 +46,11 @@ public class Jugador {
         
     	Scanner sc = new Scanner(System.in);
 
+    	System.out.println("                     Bienvenido a                           \n");
+		System.out.println("             山卂尺尺丨ㄖ尺丂 ㄖ千 乇卂乙丨爪卂                   \n");
+		System.out.println("         Sofia Lacal, Javier Monzón, Harley Mena             \n");
+		System.out.println("       ...........................................           \n");
+		
         System.out.print("Dime tu nombre: ");
         String nombre = sc.nextLine().toUpperCase();
 
@@ -139,20 +131,48 @@ public class Jugador {
     }
     
 
-    //5. toString para los puntos + imprimirlos
-    public String estadisticasString () {
-    	
-       return "Los puntos del jugador " + this.nombreJugador + " son: " + this.puntos;
-    }
+    //5. Información de los puntos del jugador
     
-    public void infoPuntos () {
+    public int infoPuntos () {
 
-        System.out.println(estadisticasString());
-    } 
-    
+        return this.puntos;
+    }
+
 }
 
 
+/* 
+		try {
+	            Scanner sc = new Scanner(System.in);
+	            DaoJugador dao = new DaoJugador();
+
+	            // Crear o recuperar jugador
+	            Jugador jugador = Jugador.crearJugador();
+
+	            // Mostrar datos del jugador
+	            jugador.infoJugador();
+
+	            System.out.println("");
+	            
+	            // Simulación de ganar puntos
+	            System.out.print("Has superado un reto. ¿Cuántos puntos has ganado?: ");
+	            int puntosGanados = sc.nextInt();
+	            sc.nextLine();
+	            jugador.sumarPuntos(puntosGanados);
+
+	            // Actualizar puntuación en BD
+	            dao.actualizarPuntos(jugador);
+
+	            // Mostrar ranking actualizado
+	            dao.mostrarRanking();
+
+	        } catch (SQLException e) {
+	            System.out.println("Error al acceder a la base de datos.");
+	            e.printStackTrace();
+	        }
+	    }
+	    
+*/
 
 
 
