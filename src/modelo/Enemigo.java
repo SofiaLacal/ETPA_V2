@@ -6,6 +6,12 @@ public class Enemigo {
 
     private String nombre;
     private int vida;
+    
+    public static final Enemigo GUSANO = new Enemigo("Gusano del Desierto", 100);
+    public static final Enemigo ESPECTRO = new Enemigo("Espectro de Arena", 120);
+    public static final Enemigo GUARDIAN = new Enemigo("Guardián de Obsidiana", 150);
+    public static final Enemigo SERPIENTE = new Enemigo("Serpiente Solar", 130);
+    public static final Enemigo SOMBRA = new Enemigo("Taharka", 180);
 
     //TODO Contructor
 
@@ -24,10 +30,6 @@ public class Enemigo {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public int getVida() {
         return vida;
     }
@@ -36,6 +38,7 @@ public class Enemigo {
         this.vida = vida;
     }
 
+    
     //TODO Otros métodos
 
     public void recibirDanio(int cantidad) {
@@ -45,8 +48,9 @@ public class Enemigo {
         System.out.println(nombre + " recibe " + cantidad + " de daño. Vida restante: " + vida);
     }
 
+    
     public boolean estaVivo() {
-    return vida > 0;
-    }
+    	return vida > 0;
+    }  
 
 }

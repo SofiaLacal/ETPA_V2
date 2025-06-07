@@ -16,7 +16,7 @@ public class Rompecabezas {
        DaoJugador dao1 = new DaoJugador();
                      
         System.out.println("\nTe encuentras con el primer rompecabezas del camino, a las puertas de la Pirámide de Ezhar. Encima de la puerta se lee lo "
-            + "siguiente:" + "\n\t❂ Soy eterno, pero nunca envejezco. Mi rostro es de piedra, pero nunca me canso" 
+            + "siguiente:" + "\n\n\t❂ Soy eterno, pero nunca envejezco. Mi rostro es de piedra, pero nunca me canso" 
         	+ "\n\tVigilante del sol y del desierto sin fin, en el misterio de las pirámides guardo mi sin fin. ¿Qué soy? ❂");
 
 		rompeCa.adivinanzaUno(jugador);
@@ -117,7 +117,7 @@ public class Rompecabezas {
 				}
 				
 			if (intentosR > 0) { 
-				System.out.println("\nAdelante, puedes pasar. " + numeroAdivinar + " era el número correcto.\n");
+				System.out.println("Adelante, puedes pasar. " + numeroAdivinar + " era el número correcto.\n");
 				 jugador.sumarPuntos(20);
 
 			} else {
@@ -178,12 +178,12 @@ public class Rompecabezas {
 						
 				if (puntosUsuario == 3) {
 					System.out.println("\nMe has derrotado justamente, puedes continuar tu camino.");
-					jugador.sumarPuntos(30);  
+					jugador.sumarPuntos(40);  
 							
 				} else {
 					System.out.println("\nHas perdido la prueba, el guardián extiende su brazo y te bloquea el paso." +
-						"Finges retirarte... pero en cuanto su atención se desvía, te deslizas silenciosamente tras una pared cercana." + 
-						"Cuando el guardián se aleja, sin sospechar nada, aprovechas el momento y te cuelas en la siguiente cámara");		
+						"\nFinges retirarte... pero en cuanto su atención se desvía, te deslizas silenciosamente tras una pared cercana." + 
+						"\nCuando el guardián se aleja, sin sospechar nada, aprovechas el momento y te cuelas en la siguiente cámara");		
 				}		
 	        }
 
@@ -205,7 +205,7 @@ public class Rompecabezas {
 					       
 					if (respuesta1.equals("b")) {
 						System.out.println("¡Correcto!\n");
-						jugador.sumarPuntos(10);
+						jugador.sumarPuntos(20);
 					            
 					} else {
 						System.out.println("No has acertado, la respuesta correcta es: el Nilo.\n");
@@ -222,7 +222,7 @@ public class Rompecabezas {
 						    
 					if (respuesta2.equals("b")) {
 				        System.out.println("¡Correcto!\n");
-				        jugador.sumarPuntos(10);
+				        jugador.sumarPuntos(20);
 				        
 				    } else {
 				        System.out.println("No has acertado, la respuesta correcta es: Tutankamón.\n");
@@ -239,7 +239,7 @@ public class Rompecabezas {
 						    
 					if (respuesta3.equals("d")) {
 				        System.out.println("¡Correcto!\n");
-				        jugador.sumarPuntos(10);
+				        jugador.sumarPuntos(20);
 				            
 				    } else {
 				        System.out.println("No has acertado, la respuesta correcta es: las Pirámides.\n");
@@ -256,7 +256,7 @@ public class Rompecabezas {
 						    
 					if (respuesta4.equals("a")) {
 				        System.out.println("¡Correcto!\n");
-				        jugador.sumarPuntos(10);
+				        jugador.sumarPuntos(20);
 				          
 					} else {
 				        System.out.println("No has acertado, la respuesta correcta es: el león.\n");
@@ -338,7 +338,7 @@ public class Rompecabezas {
 						
 					} else {
 						System.out.println("\nHas superado la prueba de Imhotep. Se aparta para dejarte paso.");
-						jugador.sumarPuntos(20);
+						jugador.sumarPuntos(40);
 					}
 	    }
 	    
@@ -347,6 +347,7 @@ public class Rompecabezas {
 	    
 	    private void favorAmmit (Jugador jugador) {
 	    	
+	    	Personaje personaje = new Personaje(null, 0, null);
 	    	Scanner sc = new Scanner (System.in);
 	    	int respuestaFinal;
 
@@ -364,24 +365,25 @@ public class Rompecabezas {
 			}
 
 				if (respuestaFinal == 1) {
-				    System.out.println("\nPor ser un avaricioso, sufrirás la ira de todos los dioses y tu alma será devorada en el Duat" 
-				    	+ "\nHas muerto. Egipto se sume en un profundo caos." 
-				    	+ "\nEl sol, alguna vez brillante y cálido sobre las tierras de Egipto, ahora está opacado por nubes oscuras que bloquean su luz. "
-						+ "\nLas aguas del Nilo, fuente de vida para el imperio, se han vuelto turbias y peligrosas, arrastrando con ellas plagas que asolan los campos y aldeas."
-				    	+ "\n\n############  FIN DEL JUEGO  ############");
-				    jugador.sumarPuntos(-50);
-				    jugador.infoJugador();
+				    				    
+				    personaje.activarFinal(1, jugador);
 				    
-				    System.exit(0);
+				    jugador.sumarPuntos(-50); 
+				  				    
+				    System.out.println("\nEstadísticas de la partida");
+				    
+		            jugador.infoJugador();
 	
 				} else if (respuestaFinal == 2) {
-				    System.out.println("\nPor corazón puro y leal, te concederé mayor poder del que jamás podrías imaginar para la batalla que acontece");		
-				    System.out.println("\nEntras en la cámara final, donde debían estar los soldados. Allí te espera Taharka, vestido con su armadura dorada, "
-				    	+ "en compañía de su fiel aliada Uraeus y con el Papiro de Damasco en la mano. "
-				    	+ "\nEstá a punto de liberar a las sombras para desatar el caos en todo Egipto y gobernar por encima de todos");
-				    jugador.sumarPuntos(50);
+				   
+					personaje.activarFinal(0, jugador);
 				    
-				    /* METODO BATALLA, LLAMARLA Y EMPEZAR A LUCHAR */
+				    jugador.sumarPuntos(60);
+				    
 				}
 	    	}   
 	    }
+
+
+
+	

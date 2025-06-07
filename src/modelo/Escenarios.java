@@ -4,8 +4,6 @@ import java.util.Random;
 
 public class Escenarios {
 
-    private static Escenarios instancia; // Singleton
-
     private EstadoEscenario estado;
     private HoraEscenario hora;
 
@@ -48,7 +46,7 @@ public class Escenarios {
         }
     }
 
-    private Escenarios() {
+    public Escenarios() {
         this.estado = getEstadoAleatorio();
         this.hora = getHoraAleatoria();
 
@@ -58,37 +56,31 @@ public class Escenarios {
         System.out.println("---------------------------------");
     }
 
-    public static Escenarios getInstancia() {
-        if (instancia == null) {
-            instancia = new Escenarios();
-        }
-        return instancia;
-    }
-
+    
     private EstadoEscenario getEstadoAleatorio() {
         EstadoEscenario[] estados = EstadoEscenario.values();
         return estados[new Random().nextInt(estados.length)];
     }
 
+    
     private HoraEscenario getHoraAleatoria() {
         HoraEscenario[] horas = HoraEscenario.values();
         return horas[new Random().nextInt(horas.length)];
     }
 
+    
     public int getModificadorAtaque() {
         int modificador = hora.getMasAtaque() - estado.getMenosAtaque();
-        // Para evitar modificador negativo, descomenta la siguiente línea:
-        // modificador = Math.max(0, modificador);
         return modificador;
     }
 
+    
     public int getModificadorDefensa() {
         int modificador = -hora.getMenosDefensa();
-        // Si quieres que la defensa no sea negativa, usa:
-        // modificador = Math.max(0, modificador);
         return modificador;
     }
 
+    
     public void imprimirCondiciones() {
         System.out.println("\n---------------------------------");
         System.out.println("Condición ambiental: " + estado.name());

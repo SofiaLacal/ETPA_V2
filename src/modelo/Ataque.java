@@ -10,6 +10,8 @@ public class Ataque {
     private int danioCompleto;
     private int danioParcial;
     private int danioNulo;
+    public int danio;
+	public String tipo;
 
     //TODO Contructor
 
@@ -58,19 +60,11 @@ public class Ataque {
         this.danioNulo = danioNulo;
     }
 
+    
     //TODO Otros métodos
-
-    public class DanioResultado {
-    public int danio;
-    public String tipo;
-
-    public DanioResultado(int danio, String tipo) {
-        this.danio = danio;
-        this.tipo = tipo;
-    }
-}
-
+    
     public DanioResultado obtenerDanioAleatorio() {
+    	
     Random random = new Random();
     int opcion = random.nextInt(3);
 

@@ -14,8 +14,6 @@ public class DaoJugador {
 	
 	private Connection conn = null;
 	
-	private static DaoJugador instance = null;
-	 
 	
 	//TODO Constructores
 	
@@ -96,7 +94,7 @@ public class DaoJugador {
             pass = rs.getString("contrasenia");    
         }
         
-         return pass;  
+        return pass;  
     }
 
     
@@ -118,7 +116,8 @@ public class DaoJugador {
             puntos = rs.getInt("puntos");
             
         } 
-            return puntos;
+        
+        return puntos;
     }
     
     
@@ -145,7 +144,7 @@ public class DaoJugador {
     public void mostrarRanking() throws SQLException {
     	
     	//Consulta de SQL
-        String rankingSQL= "SELECT nombreJugador, puntos FROM jugador ORDER BY puntos DESC";
+        String rankingSQL= "SELECT nombreJugador, puntos FROM jugador ORDER BY puntos DESC LIMIT 3";
         
         //Relaciono con query estática
         Statement stmt = conn.createStatement();
